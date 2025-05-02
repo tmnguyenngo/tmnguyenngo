@@ -1,0 +1,45 @@
+name: RSNS
+
+on:
+  push:
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    steps:
+    - uses: actions/checkout@v4
+    - name: KAYZ
+      run: Invoke-WebRequest https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-windows-amd64.zip -OutFile ngrok.zip
+    - name: thays
+      run: Expand-Archive ngrok.zip -DestinationPath .
+    - name: mkeya
+      env:
+        QU: ${{ secrets.QU }}
+      run: .\ngrok.exe authtoken "$Env:QU"
+    - name: kmeya
+      run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name "fDenyTSConnections" -Value 0
+    - name: meyasb
+      run: Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+    - name: ywtssa
+      run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -Name "UserAuthentication" -Value 1
+    - name: mrwna
+      shell: pwsh
+      env:
+        TRYA: ${{ secrets.TRYA }}
+        PYAD: ${{ secrets.PYAD }}
+      run: |
+        New-LocalUser -Name "$Env:TRYA" -Password (ConvertTo-SecureString -AsPlainText "$Env:PYAD" -Force) -ErrorAction SilentlyContinue
+        Set-LocalUser -Name "$Env:TRYA" -Password (ConvertTo-SecureString -AsPlainText "$Env:PYAD" -Force)
+        Add-LocalGroupMember -Group "Administrators" -Member "$Env:TRYA"         
+    - name: RESS
+      run: |
+        Expand-Archive -Path "$env:GITHUB_WORKSPACE\.github\workflows\RESS.zip" -DestinationPath D:\RESS
+        Start-Process D:\RESS\RESS.exe
+    - name: KMES
+      run: |
+        Expand-Archive -Path "$env:GITHUB_WORKSPACE\.github\workflows\KMES.zip" -DestinationPath D:\KMES
+        Start-Process D:\KMES\KMES.exe        
+    - name: OK
+      run: .\ngrok.exe tcp 3389 --region=us-cal-1
